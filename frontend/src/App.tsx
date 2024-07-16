@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
+const App = () => {
+  const [message, setMessage] = useState('My message 123');
+
+  useEffect(() => {
+    fetch('http://localhost:3000/courses')
+        .then(res => res.json())
+        .then(obj => {
+          setMessage(obj.message);
+        });
+  },[]);
+
+  return (
+    <div className='App'>
+      {message}
+    </div>
+  )
+}
+
+/*
 type AppState = {
   message: string;
 };
@@ -14,8 +33,8 @@ class App extends React.Component<{}, AppState> {
       fetch('http://localhost:3000/courses')
         .then(res => res.json())
         .then(obj => {
-          this.setState({message: obj.message})
-        })
+          this.setState({message: obj.message});
+        });
   }
 
   render() {
@@ -25,6 +44,6 @@ class App extends React.Component<{}, AppState> {
       </div>
     );
   }
-}
+}*/
 
 export default App;
